@@ -1,4 +1,6 @@
+SHELL := /bin/bash
 build:
 	sudo docker build -t janus-gateway ./
 test: 
-	sudo docker run -it janus-gateway /bin/bash
+	echo $(CURDIR)
+	sudo docker run --name=janus-gateway -v $(CURDIR)/janus:/janus -it janus-gateway /bin/bash
