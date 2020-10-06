@@ -4,12 +4,12 @@ ARG BUILD_SRC="/root"
 MAINTAINER Sean Pollock
 RUN apt update && apt-get upgrade -y
 RUN apt install git-core libjansson-dev \
-	libssl-dev libsrtp-dev \
-	libtool libnice-dev automake -y
-RUN apt install ca-certificates -y
-RUN apt install libconfig-dev -y
-RUN apt install libsrtp2-dev -y
-RUN apt install gengetopt -y
+	libssl-dev \
+	libtool libnice-dev automake -y \
+	ca-certificates -y \
+	libconfig-dev -y \
+	libsrtp2-dev -y \
+	gengetopt -y 
 RUN git clone https://github.com/meetecho/janus-gateway.git /janus-gateway \
 	&& cd /janus-gateway \
 	&& ./autogen.sh \
