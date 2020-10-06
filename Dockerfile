@@ -7,10 +7,10 @@ RUN apt install git-core libjansson-dev \
 	libssl-dev libsrtp-dev \
 	libtool libnice-dev automake -y
 RUN apt install ca-certificates -y
-RUN git clone https://github.com/meetecho/janus-gateway.git 
-# 	&& cd /janus-gateway \
-# 	&& ./autogen.sh \
-# 	&& ./configure \
-# 	--disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqt \
-# 	&& make \
-# 	&& make install
+RUN git clone https://github.com/meetecho/janus-gateway.git /janus-gateway \
+	&& cd /janus-gateway \
+	&& ./autogen.sh \
+	&& ./configure \
+ 	--disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqt \
+ 	&& make \
+ 	&& make install
