@@ -1,6 +1,6 @@
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.4.3
 FROM ${BASE_IMAGE}
-ARG BUILD_SRC="/root"
+ARG BUILD_SRC="/janus"
 MAINTAINER Sean Pollock
 RUN apt update && apt-get upgrade -y
 # install dependencies
@@ -19,12 +19,21 @@ RUN wget https://github.com/cisco/libsrtp/archive/v2.3.0.tar.gz && \
 	./configure --prefix=/usr --enable-openssl && \
 	make shared_library && \
 	make install
+# install websockets
+RUN apt install cmake -y
+RUN git clone https://github.com/warmcat/libwebsockets.git /libwebsockets \
+	&& mkdir /libwebsockets/build \
+	&& cd /libwebsockets/build \
+	&& cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" .. \
+ 	&& make \
+   	&& make install
 # make janus-gateway
-RUN git clone https://github.com/meetecho/janus-gateway.git /janus \
-	&& cd /janus \
+RUN git clone https://github.com/meetecho/janus-gateway.git ${BUILD_SRC} \
+	&& mv /libwebsockets ${BUILD_SRC} \
+	&& cd ${BUILD_SRC} \
 	&& ./autogen.sh \
 	&& ./configure --prefix=/janus \
- 	--disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
+ 	--disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
  	&& make \
  	&& make install
 # run janus
