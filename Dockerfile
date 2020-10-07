@@ -20,8 +20,8 @@ RUN wget https://github.com/cisco/libsrtp/archive/v2.3.0.tar.gz && \
 	make shared_library && \
 	make install
 # make janus-gateway
-RUN git clone https://github.com/meetecho/janus-gateway.git /janus-gateway \
-	&& cd /janus-gateway \
+RUN git clone https://github.com/meetecho/janus-gateway.git /janus \
+	&& cd /janus \
 	&& ./autogen.sh \
 	&& ./configure --prefix=/janus \
  	--disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
@@ -29,3 +29,4 @@ RUN git clone https://github.com/meetecho/janus-gateway.git /janus-gateway \
  	&& make install
 # run janus
 ARG LD_LIBRARY_PATH=/usr/lib
+COPY ./janus /janus
