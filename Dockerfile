@@ -36,6 +36,10 @@ RUN git clone https://github.com/meetecho/janus-gateway.git ${BUILD_SRC} \
  	--disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
  	&& make \
  	&& make install
+# clean up
+ADD clean.sh /clean.sh
+RUN chmod +x /clean.sh
+RUN /clean.sh
 # run janus
 ARG LD_LIBRARY_PATH=/usr/lib
 COPY ./janus /janus
