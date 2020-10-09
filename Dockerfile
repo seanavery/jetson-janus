@@ -43,6 +43,7 @@ RUN git clone https://github.com/warmcat/libwebsockets.git /libwebsockets \
 	&& cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" .. \
  	&& make \
    	&& make install
+RUN apt-get install libogg-dev pkg-config -y 
 # make janus-gateway
 RUN git clone https://github.com/meetecho/janus-gateway.git ${BUILD_SRC} \
 	&& mv /libwebsockets ${BUILD_SRC}
@@ -50,7 +51,7 @@ COPY ./janus /janus
 RUN cd ${BUILD_SRC} \
 	&& ./autogen.sh \
 	&& ./configure --prefix=/janus \
- 	--disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
+	--disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
  	&& make \
  	&& make install
 # clean up
