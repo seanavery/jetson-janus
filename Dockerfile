@@ -57,10 +57,13 @@ RUN cd ${BUILD_SRC} \
 ADD scripts/clean.sh /clean.sh
 RUN chmod +x /clean.sh
 RUN /clean.sh
-# run janus
-ARG LD_LIBRARY_PATH=/usr/lib
 # API PORT
 EXPOSE 8088
 EXPOSE 8089
 # Websocket PORT
 EXPOSE 8188
+# Webserver (for testing demos)
+EXPOSE 8080
+# run janus
+ARG LD_LIBRARY_PATH=/usr/lib
+ADD scripts/run.sh /run.sh

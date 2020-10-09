@@ -1,13 +1,2 @@
 [general]
 admin_key = supersecret
-
-[gstreamer-sample]
-type = rtp
-id = 1
-description = Opus/VP8 live stream coming from gstreamer
-audio = no
-video = yes
-videoport = 5004
-videopt = 100
-videortpmap = VP8/90000
-secret = adminpwd

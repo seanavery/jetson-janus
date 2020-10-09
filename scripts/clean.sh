@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir /janus/lib/janus/loggers
 cd ${BUILD_SRC}/etc/janus \
 && for FILE in *; \
 	do echo $FILE; 
