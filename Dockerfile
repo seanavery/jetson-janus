@@ -18,7 +18,10 @@ RUN apt-get install git-core libjansson-dev \
 	python3-pip \
 	python3-setuptools \
 	python3-wheel \
-	ninja-build -y
+	ninja-build \
+	libogg-dev \
+	pkg-config \
+	libmicrohttpd-dev -y
 # install meson
 RUN pip3 install meson
 # install libnice
@@ -43,19 +46,18 @@ RUN git clone https://github.com/warmcat/libwebsockets.git /libwebsockets \
 	&& cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" .. \
  	&& make \
    	&& make install
-RUN apt-get install libogg-dev pkg-config -y 
 # make janus-gateway
 RUN git clone https://github.com/meetecho/janus-gateway.git ${BUILD_SRC} \
 	&& mv /libwebsockets ${BUILD_SRC}
-COPY ./janus /janus
 RUN cd ${BUILD_SRC} \
 	&& ./autogen.sh \
 	&& ./configure --prefix=/janus \
-	--disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
+	--enable-http --disable-websockets --disable-data-channels --disable-rabbitmq --disable-mqt --disable-all-handlers \
  	&& make \
  	&& make install
 # clean up
 ADD scripts/clean.sh /clean.sh
+COPY ./janus /janus
 RUN chmod +x /clean.sh
 RUN /clean.sh
 # API PORT
