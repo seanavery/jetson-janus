@@ -1,2 +1,6 @@
-[general]
-admin_key = supersecret
+general: {
+	base_path = "/janus"
+	http = true
+	port = 8088
+	https = false
+}
