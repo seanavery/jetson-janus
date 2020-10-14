@@ -57,9 +57,12 @@ RUN cd ${BUILD_SRC} \
  	&& make install
 # clean up
 ADD scripts/clean.sh /clean.sh
-COPY ./janus /janus
+ADD scripts/config.sh /config.sh
 RUN chmod +x /clean.sh
+RUN chmod +x /config.sh
 RUN /clean.sh
+ADD config/janus.plugin.streaming.jcfg /janus.plugin.streaming.jcfg
+RUN /config.sh
 # API PORT
 EXPOSE 8088
 EXPOSE 8089
@@ -70,3 +73,5 @@ EXPOSE 8080
 # run janus
 ARG LD_LIBRARY_PATH=/usr/lib
 ADD scripts/run.sh /run.sh
+RUN chmod +x /run.sh
+
