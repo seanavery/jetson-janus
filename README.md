@@ -8,20 +8,20 @@ Jetson devices come with great primitives for camera capture and RTP streaming. 
 
 ## run
 
-`
+```
 # build docker container locally
 make build
-`
+```
 
-`
+```
 # run docker container
 make test
-`
+```
 
-`
+```
 # run camera to rtp producer
 make camera
-`
+```
 
 ```
 1. The container exposes a webserver for the streaming plugin app at port 8080
