@@ -171,10 +171,11 @@ gst-live-sample: {
 	description = "live camera stream from jetson device"
 	video = true
 	audio = false
-	videoport = 5005
-	videopt = 100
-	videortpmap="H264/8000000"
-	secret = "adminpwd"
+	videoiface="192.168.1.2"
+	videoport = 5000
+	videopt = 96
+	videortpmap="H264/90000"
+	secret = "admindpwd"
 }
 
 #
